@@ -1,9 +1,12 @@
 import Joi from "joi";
 
-const registerUserValidation = Joi.object({
+export const registerUserValidation = Joi.object({
   username: Joi.string().max(100).required(),
   password: Joi.string().max(100).required(),
   name: Joi.string().max(100).required(),
 });
 
-export default registerUserValidation;
+export const loginUserValidation = Joi.object({
+  username: Joi.string().max(100).required(),
+  password: Joi.string().max(100).required(),
+});
