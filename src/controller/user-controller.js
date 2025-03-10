@@ -1,4 +1,10 @@
-import { register, login, get, update } from "../services/user-service.js";
+import {
+  register,
+  login,
+  get,
+  update,
+  logout,
+} from "../services/user-service.js";
 
 const registerHandler = async (req, res, next) => {
   try {
@@ -48,7 +54,19 @@ const updateUserHandler = async (req, res, next) => {
     next(e);
   }
 };
+
+const logoutUserHandler = async (req, res, next) => {
+  try {
+    await logout(req.user.username);
+    res.status(200).json({
+      data: "OK",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 export default {
+  logout: logoutUserHandler,
   register: registerHandler,
   login: loginHandler,
   get: getUserHandler,
