@@ -1,4 +1,4 @@
-import { create, get, update } from "../services/contact-service.js";
+import { create, get, remove, update } from "../services/contact-service.js";
 
 const createHandler = async (req, res, next) => {
   try {
@@ -40,8 +40,23 @@ const updateContactHandler = async (req, res, next) => {
   }
 };
 
+const removeContactHandler = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const contactId = req.params.contactId;
+
+    const result = await remove(user, contactId);
+    res.status(200).json({
+      data: "OK",
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
 export default {
   create: createHandler,
   get: getContactHandler,
   update: updateContactHandler,
+  remove: removeContactHandler,
 };
