@@ -3,7 +3,6 @@ import { web } from "../src/application/web.js";
 import { logger } from "../src/application/logging.js";
 import { removeTestUser, createTestUser, getTestUser } from "./test.util.js";
 import bcrypt from "bcrypt";
-import { info } from "winston";
 
 describe("POST /api/users", function () {
   afterEach(async () => {
