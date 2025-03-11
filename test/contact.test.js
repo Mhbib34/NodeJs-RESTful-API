@@ -135,7 +135,13 @@ describe("PUT /api/contacts/:contactId", function () {
     const testContact = await getTestContact();
     const result = await supertest(web)
       .put(`/api/contacts/${testContact.id + 1}`)
-      .set("Authorization", "test");
+      .set("Authorization", "test")
+      .send({
+        firstName: "Muhammad",
+        lastName: "Habib",
+        email: "Habib@gmail.com",
+        phone: "080812342111",
+      });
 
     expect(result.status).toBe(404);
     expect(result.body.errors).toBeDefined();
