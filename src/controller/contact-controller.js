@@ -1,4 +1,10 @@
-import { create, get, remove, update } from "../services/contact-service.js";
+import {
+  create,
+  get,
+  remove,
+  update,
+  search,
+} from "../services/contact-service.js";
 
 const createHandler = async (req, res, next) => {
   try {
@@ -54,9 +60,30 @@ const removeContactHandler = async (req, res, next) => {
   }
 };
 
+const searchContactHandler = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const request = {
+      name: req.query.name,
+      email: req.query.email,
+      phone: req.query.phone,
+      page: req.query.page,
+      size: req.query.size,
+    };
+
+    const result = await search(user, request);
+    res.status(200).json({
+      data: result.data,
+      paging: result.paging,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 export default {
   create: createHandler,
   get: getContactHandler,
   update: updateContactHandler,
   remove: removeContactHandler,
+  search: searchContactHandler,
 };
