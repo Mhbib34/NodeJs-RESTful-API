@@ -1,4 +1,4 @@
-import { create, get } from "../services/contact-service.js";
+import { create, get, update } from "../services/contact-service.js";
 
 const createHandler = async (req, res, next) => {
   try {
@@ -23,7 +23,25 @@ const getContactHandler = async (req, res, next) => {
     next(error);
   }
 };
+
+const updateContactHandler = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const contactId = req.params.contactId;
+    const request = req.body;
+    request.id = contactId;
+
+    const result = await update(user, request);
+    res.status(200).json({
+      data: result,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
 export default {
   create: createHandler,
   get: getContactHandler,
+  update: updateContactHandler,
 };
