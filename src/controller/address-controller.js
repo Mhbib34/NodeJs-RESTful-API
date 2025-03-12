@@ -1,4 +1,4 @@
-import { create, get, update } from "../services/address-service.js";
+import { create, get, remove, update } from "../services/address-service.js";
 
 const createAddressHandler = async (req, res, next) => {
   try {
@@ -44,8 +44,23 @@ const updateAddressHandler = async (req, res, next) => {
   }
 };
 
+const removeAddressHandler = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const contactId = req.params.contactId;
+    const addressId = req.params.addressId;
+    await remove(user, contactId, addressId);
+    res.status(200).json({
+      data: "OK",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   create: createAddressHandler,
   get: getAddressHandler,
   update: updateAddressHandler,
+  remove: removeAddressHandler,
 };
