@@ -33,4 +33,5 @@ userRouter.delete(
   "/api/contacts/:contactId/addresses/:addressId",
   addressController.remove
 );
+userRouter.get("/api/contacts/:contactId/addresses/", addressController.list);
 export default userRouter;
