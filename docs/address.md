@@ -24,7 +24,7 @@ Response Body Success :
 ```json
 {
   "data": {
-    "id":1
+    "id": 1,
     "street": "Jalan apa",
     "city": "Kota apa",
     "province": "Provinsi Apa",
