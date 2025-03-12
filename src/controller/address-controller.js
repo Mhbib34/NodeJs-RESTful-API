@@ -1,4 +1,4 @@
-import { create } from "../services/address-service.js";
+import { create, get } from "../services/address-service.js";
 
 const createAddressHandler = async (req, res, next) => {
   try {
@@ -14,6 +14,20 @@ const createAddressHandler = async (req, res, next) => {
   }
 };
 
+const getAddressHandler = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const contactId = req.params.contactId;
+    const addressId = req.params.addressId;
+    const result = await get(user, contactId, addressId);
+    res.status(200).json({
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 export default {
   create: createAddressHandler,
+  get: getAddressHandler,
 };
